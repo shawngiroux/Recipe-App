@@ -14,5 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $recipes = [
+        0 => [
+            'name' => 'Beef Stew',
+            'cook_time' => '30',
+            'prep_time' => '10'
+        ],
+        1 => [
+            'name' => 'Korean Beef Bibimbap',
+            'cook_time' => '20',
+            'prep_time' => '4'
+        ]
+    ];
+
+    return view('app')
+        ->with('name', 'Shawn')
+        ->with('recipes', $recipes);
 });

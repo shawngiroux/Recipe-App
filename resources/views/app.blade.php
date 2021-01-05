@@ -8,19 +8,7 @@
     <title>Recipe App</title>
 </head>
 <body class="antialiased h-full w-full">
-    <div class="lg:flex h-full w-full">
-        <x-sidebar></x-sidebar>
-        <div class="bg-blue-50 h-full w-full">
-            @foreach ($recipes as $recipe)
-                <x-recipe :name="$recipe['name']"
-                        :cook_time="$recipe['cook_time']"
-                        :prep_time="$recipe['prep_time']"
-                />
-            @endforeach
-        </div>
-    </div>
+    <div id="example" class="h-full w-full"></div>
 </body>
-<script>
-    console.log(@json($recipes));
-</script>
+<script src="{{ asset('js/app.js') }}"></script>
 </html>

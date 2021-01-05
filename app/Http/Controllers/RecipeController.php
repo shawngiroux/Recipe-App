@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Recipes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -48,7 +49,25 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
+        $recipe = DB::table('recipes')
+            ->select('name', 'cook_time', 'prep_time')
+            ->where("id", $id)
+            ->get();
+        return response($recipe, 200);
+    }
+
+    /**
+     * Gets all recipes
+     *
+     * @return \Illuminate\Htpp\Response
+     */
+    public function getAll()
+    {
         //
+        $recipes = DB::table('recipes')
+            ->select('id', 'name', 'cook_time', 'prep_time')
+            ->get();
+        return response($recipes, 200);
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\Recipes;
+use App\Models\Recipe;
 
 class TestScript extends Command
 {
@@ -38,10 +38,28 @@ class TestScript extends Command
      */
     public function handle()
     {
-        $recipes = new Recipe;
+        $recipe = new Recipe;
         $name = "Beef Stew";
-        $recipes->name = $name;
-        $recipes->save();
+        $cook_time = 30;
+        $prep_time = 10;
+
+        $recipe->name = $name;
+        $recipe->cook_time = $cook_time;
+        $recipe->prep_time = $prep_time;
+        $recipe->save();
+
+        echo "Inserting $name", PHP_EOL;
+
+        $recipe = new Recipe;
+        $name = "Korean Beef Bibimbap";
+        $cook_time = 20;
+        $prep_time = 4;
+
+        $recipe->name = $name;
+        $recipe->cook_time = $cook_time;
+        $recipe->prep_time = $prep_time;
+        $recipe->save();
+
         echo "Inserting $name", PHP_EOL;
         return 0;
     }

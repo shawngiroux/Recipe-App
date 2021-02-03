@@ -15,8 +15,8 @@ class RecipeFormList extends React.Component {
         this.handleAdd = this.handleAdd.bind(this);
     }
 
-    handleChange(type, event) {
-        this.state[type] = event.target.value;
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
     }
 
     handleAdd() {
@@ -39,7 +39,7 @@ class RecipeFormList extends React.Component {
 
         let element = <CategoryCard header={this.props.header} body={list}></CategoryCard>;
 
-        this.refs.ingredient.value = "";
+        this.refs.[this.props.header].value = "";
         if (this.props.hasQty === true) {
             this.refs.qty.value = 1;
         }
@@ -53,7 +53,8 @@ class RecipeFormList extends React.Component {
         if (this.props.hasQty === true) {
             qty = <input className="w-1/4"
                 type="number"
-                onChange={(event) => this.handleChange("qty", event)}
+                name="qty"
+                onChange={this.handleChange}
                 placeholder="Qty"
                 ref="qty"
                 min="1"
@@ -70,7 +71,8 @@ class RecipeFormList extends React.Component {
                         </button>
                         <input className={this.props.hasQty == true ? "w-3/4 mr-4" : " w-full"}
                             type="text"
-                            onChange={(event) => this.handleChange("name", event)}
+                            name="name"
+                            onChange={this.handleChange}
                             placeholder={this.props.header}
                             ref={this.props.header}
                         />

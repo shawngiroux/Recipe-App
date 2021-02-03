@@ -14,25 +14,7 @@ use App\Http\Controllers\RecipeController;
 |
 */
 
-Route::get('/', function () {
-    $recipes = [
-        0 => [
-            'name' => 'Beef Stew',
-            'cook_time' => '30',
-            'prep_time' => '10'
-        ],
-        1 => [
-            'name' => 'Korean Beef Bibimbap',
-            'cook_time' => '20',
-            'prep_time' => '4'
-        ]
-    ];
+Route::view('/{path?}', 'app')->where('path', '^((?!api).)*$');
 
-    return view('app')
-        ->with('name', 'Shawn')
-        ->with('recipes', $recipes);
-});
-
-Route::get("/recipes", [RecipeController::class, "getAll"]);
-
-Route::get("/recipes/{id}", [RecipeController::class, "show"]);
+Route::get("/api/recipes", [RecipeController::class, "getAll"]);
+Route::get("/api/recipes/{id}", [RecipeController::class, "show"]);

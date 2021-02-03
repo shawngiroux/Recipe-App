@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Console\Commands;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Console\Command;
+use App\Models\Recipes;
 use App\Models\Recipe;
+use App\Http\Controllers\RecipeController;
 
 class TestScript extends Command
 {
@@ -38,29 +41,34 @@ class TestScript extends Command
      */
     public function handle()
     {
-        $recipe = new Recipe;
-        $name = "Beef Stew";
-        $cook_time = 30;
-        $prep_time = 10;
+        $recipe = DB::table('recipes')
+            ->select('id', 'name', 'cook_time', 'prep_time')
+            ->where("id", 1)
+            ->get();
 
-        $recipe->name = $name;
-        $recipe->cook_time = $cook_time;
-        $recipe->prep_time = $prep_time;
-        $recipe->save();
+        //$recipe = new Recipe;
+        //$name = "Beef Stew";
+        //$cook_time = 30;
+        //$prep_time = 10;
 
-        echo "Inserting $name", PHP_EOL;
+        //$recipe->name = $name;
+        //$recipe->cook_time = $cook_time;
+        //$recipe->prep_time = $prep_time;
+        //$recipe->save();
 
-        $recipe = new Recipe;
-        $name = "Korean Beef Bibimbap";
-        $cook_time = 20;
-        $prep_time = 4;
+        //echo "Inserting $name", PHP_EOL;
 
-        $recipe->name = $name;
-        $recipe->cook_time = $cook_time;
-        $recipe->prep_time = $prep_time;
-        $recipe->save();
+        //$recipe = new Recipe;
+        //$name = "Korean Beef Bibimbap";
+        //$cook_time = 20;
+        //$prep_time = 4;
 
-        echo "Inserting $name", PHP_EOL;
+        //$recipe->name = $name;
+        //$recipe->cook_time = $cook_time;
+        //$recipe->prep_time = $prep_time;
+        //$recipe->save();
+
+        //echo "Inserting $name", PHP_EOL;
         return 0;
     }
 }

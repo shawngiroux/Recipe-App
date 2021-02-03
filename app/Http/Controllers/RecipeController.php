@@ -63,7 +63,6 @@ class RecipeController extends Controller
      */
     public function getAll()
     {
-        //
         $recipes = DB::table('recipes')
             ->select('id', 'name', 'cook_time', 'prep_time')
             ->get();

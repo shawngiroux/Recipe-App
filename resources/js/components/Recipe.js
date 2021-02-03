@@ -1,43 +1,79 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import Topbar from './Topbar.js';
+import CategoryCard from './Categorycard.js';
 
 class Recipe extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            recipe_name: "",
+            cook_time: "",
+            prep_time: ""
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        fetch('/api/recipes/' + id)
+            .then(response => response.json())
+            .then(
+                data => {
+                    data.forEach((recipe) => {
+                        this.setState({
+                            recipe_name: recipe.name,
+                            cook_time: recipe.cook_time,
+                            prep_time: recipe.prep_time
+                        })
+                    });
+                }
+            );
+    }
+
     render() {
+        const tint = {
+            zIndex: "1",
+            height: "100%",
+            width: "100%",
+            background: "rgba(0, 0, 0, 0.9)"
+        };
+
+        const img_style = {
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            filter: "blur(4px)",
+            transform: "scale(1.03)",
+            width: "100%",
+            height: "24rem",
+            backgroundImage: "url(https://www.chef-in-training.com/blog/wp-content/uploads/2016/04/Beef-Stew-2.jpg)",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            backgroundBlendMode: "multiply"
+        };
+
+        const body = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>;
+
+
         return (
             <div>
-                <div className="p-6 max-w-lg mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 mt-5 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-                    <div className="flex-shrink-0">
-                        <img className="h-16 y-16" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwolper.com.au%2Fwp-content%2Fuploads%2F2017%2F10%2Fimage-placeholder.jpg&f=1&nofb=1" alt=""></img>
-                    </div>
-                    <div>
-                        <div className="text-xl font-medium text-black">{ this.props.name }</div>
-                            <div className="flex">
-                                <div className="flex items-center">
-                                    <svg className="text-purple-500 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    <p className="text-gray-500 mx-1">Cook Time: { this.props.cook_time } Min</p>
-                                </div>
-                                <div className="flex items-center mx-5">
-                                    <svg className="text-purple-500 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    <p className="text-gray-500 mx-1">Prep Time: { this.props.prep_time } Min</p>
-                                </div>
-                            </div>
+                <Topbar></Topbar>
+                <div className="p-8 bg-gray-100 w-full">
+                    <div className="overflow-hidden w-full relative rounded-tl-xl rounded-tr-xl">
+                        <div className="w-full h-full flex items-center justify-center absolute">
+                            <h1 className="text-white z-10 text-6xl">{this.state.recipe_name}</h1>
+                        </div>
+                        <div style={img_style}>
                         </div>
                     </div>
+                    <div className="pl-8 pr-8 pt-8 w-full bg-white rounded-bl-xl rounded-br-xl flex flex-col space-evenly">
+                        <CategoryCard header="Description" body={body}></CategoryCard>
+                        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+                            <CategoryCard header="Ingredients" body={body}></CategoryCard>
+                            <CategoryCard header="Bust Out" body={body}></CategoryCard>
+                        </div>
+                        <CategoryCard header="Directions" body={body}></CategoryCard>
+                    </div>
                 </div>
+            </div>
         );
     }
 }

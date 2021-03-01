@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RecipeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +12,4 @@ use App\Http\Controllers\RecipeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::view('/{path?}', 'app')->where('path', '^((?!api).)*$');
-
-Route::get("/api/recipes", [RecipeController::class, "getAll"]);
-Route::get("/api/recipes/{id}", [RecipeController::class, "show"]);

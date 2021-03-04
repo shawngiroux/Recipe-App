@@ -62,7 +62,6 @@ class RecipeFormList extends React.Component {
                 placeholder="Qty"
                 ref="qty"
                 min="1"
-                value="1"
             />
         }
         return (

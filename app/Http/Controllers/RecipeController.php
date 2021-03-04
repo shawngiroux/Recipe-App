@@ -39,18 +39,69 @@ class RecipeController extends Controller
         $recipe_name = $request->input('recipe_name');
         $prep_time = $request->input('prep_time');
         $cook_time = $request->input('cook_time');
-        $ingredients = $request->input('ingredients');
-        $utensil = $request->input('utensil');
         $description = $request->input('description');
 
-        DB::table('recipes')->insert([
+        $ingredients = $request->input('ingredients');
+        $utensils = $request->input('utensils');
+
+        // Grabs id of entry in a given table
+        $getId = function($table, $col_name, $col_val) {
+            $id = DB::table($table)
+                ->select('id')
+                ->where($col_name, $col_val)
+                ->get()[0]->id;
+            return $id;
+        };
+
+        $recipe_id = DB::table('recipes')->insertOrIgnore
+            ([
             'name' => $recipe_name,
             'prep_time' => $prep_time,
             'cook_time' => $cook_time,
             'description' => $description
         ]);
 
-        error_log(print_r($request->all(), true));
+        $recipe_id = $getId(
+            'recipes',
+            'name',
+            $recipe_name
+        );
+
+        foreach ($ingredients as $ingredient) {
+            DB::table('ingredients')->insertOrIgnore([
+                'name' => $ingredient['name']
+            ]);
+
+            $ingredient_id = $getId(
+                'ingredients',
+                'name',
+                $ingredient['name']
+            );
+
+            DB::table('recipe_ingredients')->insertOrIgnore([
+                'recipe_id' => $recipe_id,
+                'ingredient_id' => $ingredient_id,
+                'quantity' => $ingredient['qty']
+            ]);
+        }
+
+        foreach ($utensils as $utensil) {
+            DB::table('utensils')->insertOrIgnore([
+                'name' => $utensil['name']
+            ]);
+
+            $utensil_id = $getId(
+                'utensils',
+                'name',
+                $utensil['name']
+            );
+
+            DB::table('recipe_utensils')->insertOrIgnore([
+                'recipe_id' => $recipe_id,
+                'utensil_id' => $utensil_id
+            ]);
+        }
+
         return response(true, 200);
     }
 

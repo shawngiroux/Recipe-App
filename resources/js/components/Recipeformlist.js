@@ -43,8 +43,10 @@ class RecipeFormList extends React.Component {
 
         let element = <CategoryCard header={this.props.header} body={list}></CategoryCard>;
 
+        this.setState({name: ''});
         this.refs.[this.props.header].value = "";
         if (this.props.hasQty === true) {
+            this.setState({qty: 1});
             this.refs.qty.value = 1;
         }
 

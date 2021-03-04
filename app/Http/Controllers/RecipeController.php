@@ -128,7 +128,7 @@ class RecipeController extends Controller
     public function getAll()
     {
         $recipes = DB::table('recipes')
-            ->select('id', 'name', 'cook_time', 'prep_time')
+            ->select('id', 'name', 'cook_time', 'prep_time', 'description')
             ->get();
         return response($recipes, 200);
     }

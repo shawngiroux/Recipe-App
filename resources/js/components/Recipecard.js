@@ -11,7 +11,7 @@ class RecipeCard extends React.Component {
                     <img className="h-1/3 max-h-64 w-full object-cover rounded-tl-xl rounded-tr-xl" src="https://www.chef-in-training.com/blog/wp-content/uploads/2016/04/Beef-Stew-2.jpg" alt=""></img>
                     <div className="w-full flex flex-col p-6">
                         <div className="text-xl font-semibold text-black">{ this.props.name }</div>
-                        <p className="text-sm font-medium text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco...</p>
+                        <p className="text-sm font-medium text-gray-500">{ this.props.description }</p>
                         <div className="flex justify-evenly">
                             <div className="flex items-center justify-evenly w-full mt-5 mb-3">
                                 <div className="flex flex-col items-center">

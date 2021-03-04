@@ -17,7 +17,7 @@ class RecipeUtensils extends Migration
             $table->id();
             $table->unsignedBigInteger('recipe_id');
             $table->unsignedBigInteger('utensil_id');
-            $table->unsignedInteger('quantity');
+            $table->unsignedInteger('quantity')->default(1);
             $table->timestamps();
             $table
                 ->foreign('recipe_id')
@@ -29,6 +29,7 @@ class RecipeUtensils extends Migration
                 ->references('id')
                 ->on('utensils')
             ;
+            $table->unique(['recipe_id', 'utensil_id']);
         });
     }
 

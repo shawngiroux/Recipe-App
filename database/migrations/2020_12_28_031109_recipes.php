@@ -15,7 +15,7 @@ class Recipes extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('cook_time');
             $table->integer('prep_time');
             $table->text('description')->nullable();

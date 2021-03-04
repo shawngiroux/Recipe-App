@@ -15,7 +15,7 @@ class Utensils extends Migration
     {
         Schema::create('utensils', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

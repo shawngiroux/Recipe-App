@@ -16,7 +16,7 @@ class RecipeIngredients extends Migration
         Schema::create('recipe_ingredients', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('recipe_id');
-            $table->unsignedBigInteger('ingredients_id');
+            $table->unsignedBigInteger('ingredient_id');
             $table->unsignedInteger('quantity');
             $table->timestamps();
             $table
@@ -25,10 +25,11 @@ class RecipeIngredients extends Migration
                 ->on('recipes')
             ;
             $table
-                ->foreign('ingredients_id')
+                ->foreign('ingredient_id')
                 ->references('id')
                 ->on('ingredients')
             ;
+            $table->unique(['recipe_id', 'ingredient_id']);
         });
     }
 

@@ -70370,6 +70370,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Recipeformlist_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Recipeformlist.js */ "./resources/js/components/Recipeformlist.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -70399,18 +70401,58 @@ var RecipeForm = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(RecipeForm);
 
-  function RecipeForm() {
+  function RecipeForm(props) {
+    var _this;
+
     _classCallCheck(this, RecipeForm);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      recipe_name: "",
+      prep_time: "",
+      cook_time: "",
+      ingredients: [],
+      utensil: [],
+      description: ""
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleAddListItem = _this.handleAddListItem.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(RecipeForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      fetch('/api/recipes', {
+        method: 'POST',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log(this.state);
+      event.preventDefault();
+    } // Handler for adding list items to form state
+
+  }, {
+    key: "handleAddListItem",
+    value: function handleAddListItem(key, item) {
+      // Setting to lower to match the state's index
+      this.setState(_defineProperty({}, key.toLowerCase(), item));
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "w-full h-full"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Topbar_js__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit,
         className: "bg-gray-100 w-full h-full p-8"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-8 bg-white rounded-xl"
@@ -70422,31 +70464,36 @@ var RecipeForm = /*#__PURE__*/function (_React$Component) {
         className: "font-bold"
       }, "Recipe Name:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        name: "recipe-name",
-        placeholder: "Your recipe"
+        name: "recipe_name",
+        placeholder: "Your recipe",
+        onChange: this.handleChange
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "flex mb-8"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "font-bold w-full mr-4"
       }, "Prep Time:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "number",
-        name: "prep-time",
-        placeholder: "Minutes"
+        name: "prep_time",
+        placeholder: "Minutes",
+        onChange: this.handleChange
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "font-bold w-full"
       }, "Cook Time:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "number",
-        name: "cook-time",
-        placeholder: "Minutes"
+        name: "cook_time",
+        placeholder: "Minutes",
+        onChange: this.handleChange
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mb-4"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Recipeformlist_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        handleAddListItem: this.handleAddListItem,
         id: "ingredient-list",
         header: "Ingredients",
         hasQty: true
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mb-4"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Recipeformlist_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        handleAddListItem: this.handleAddListItem,
         id: "utensils-list",
         header: "Utensils"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70456,11 +70503,13 @@ var RecipeForm = /*#__PURE__*/function (_React$Component) {
       }, "Description:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         name: "description",
         cols: "30",
-        rows: "10"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        rows: "10",
+        onChange: this.handleChange
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
-        className: "w-full"
-      }, "Submit"))));
+        className: "w-full",
+        value: "Submit"
+      }))));
     }
   }]);
 
@@ -70486,6 +70535,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Categorycard_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Categorycard.js */ "./resources/js/components/Categorycard.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -70524,6 +70575,7 @@ var RecipeFormList = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       name: "",
+      qty: 1,
       list: []
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -70533,18 +70585,20 @@ var RecipeFormList = /*#__PURE__*/function (_React$Component) {
 
   _createClass(RecipeFormList, [{
     key: "handleChange",
-    value: function handleChange(type, event) {
-      this.state[type] = event.target.value;
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
     key: "handleAdd",
     value: function handleAdd() {
       var _this2 = this;
 
-      this.state.list.push({
+      var item = {
         name: this.state.name,
         qty: this.state.qty
-      });
+      };
+      this.state.list.push(item);
+      this.props.handleAddListItem(this.props.header, this.state.list);
       var list = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "grid grid-cols-3 gap-10"
       }, this.state.list.map(function (item) {
@@ -70563,7 +70617,7 @@ var RecipeFormList = /*#__PURE__*/function (_React$Component) {
         header: this.props.header,
         body: list
       });
-      this.refs.ingredient.value = "";
+      this.refs[this.props.header].value = "";
 
       if (this.props.hasQty === true) {
         this.refs.qty.value = 1;
@@ -70574,17 +70628,14 @@ var RecipeFormList = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       var qty;
 
       if (this.props.hasQty === true) {
         qty = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           className: "w-1/4",
           type: "number",
-          onChange: function onChange(event) {
-            return _this3.handleChange("qty", event);
-          },
+          name: "qty",
+          onChange: this.handleChange,
           placeholder: "Qty",
           ref: "qty",
           min: "1",
@@ -70603,9 +70654,8 @@ var RecipeFormList = /*#__PURE__*/function (_React$Component) {
       }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: this.props.hasQty == true ? "w-3/4 mr-4" : " w-full",
         type: "text",
-        onChange: function onChange(event) {
-          return _this3.handleChange("name", event);
-        },
+        name: "name",
+        onChange: this.handleChange,
         placeholder: this.props.header,
         ref: this.props.header
       }), qty)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

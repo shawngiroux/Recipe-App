@@ -8,6 +8,7 @@ class RecipeFormList extends React.Component {
 
         this.state = {
             name: "",
+            qty: 1,
             list: []
         }
 
@@ -20,10 +21,13 @@ class RecipeFormList extends React.Component {
     }
 
     handleAdd() {
-        this.state.list.push({
+        let item = {
             name: this.state.name,
             qty: this.state.qty
-        });
+        };
+
+        this.state.list.push(item);
+        this.props.handleAddListItem(this.props.header, this.state.list);
 
         let list = <ul className="grid grid-cols-3 gap-10">{this.state.list.map(
             (item) => {

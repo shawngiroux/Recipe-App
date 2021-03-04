@@ -36,9 +36,22 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        $recipe = new Recipes;
-        $recipe->name = $request->name;
-        $recipe->save();
+        $recipe_name = $request->input('recipe_name');
+        $prep_time = $request->input('prep_time');
+        $cook_time = $request->input('cook_time');
+        $ingredients = $request->input('ingredients');
+        $utensil = $request->input('utensil');
+        $description = $request->input('description');
+
+        DB::table('recipes')->insert([
+            'name' => $recipe_name,
+            'prep_time' => $prep_time,
+            'cook_time' => $cook_time,
+            'description' => $description
+        ]);
+
+        error_log(print_r($request->all(), true));
+        return response(true, 200);
     }
 
     /**

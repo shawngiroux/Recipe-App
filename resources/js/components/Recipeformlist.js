@@ -33,7 +33,7 @@ class RecipeFormList extends React.Component {
             (item) => {
                 let item_qty = ""
                 if (this.props.hasQty) {
-                    item.qty = undefined ?? 1;
+                    item_qty = undefined ?? 1;
                     item_qty = ` (x${item.qty})`;
                 }
                 return <li key={item.name}>{item.name}{item_qty}</li>;

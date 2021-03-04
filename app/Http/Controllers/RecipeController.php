@@ -114,10 +114,33 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = DB::table('recipes')
-            ->select('name', 'cook_time', 'prep_time')
+            ->select('id', 'name', 'cook_time', 'prep_time', 'description')
             ->where("id", $id)
+            ->get()[0];
+
+        $ingredients = DB::table('recipe_ingredients')
+            ->select('name', 'quantity')
+            ->join('ingredients', 'ingredient_id', '=', 'ingredients.id')
+            ->where('recipe_id', $recipe->id)
             ->get();
-        return response($recipe, 200);
+
+        $utensils = DB::table('recipe_utensils')
+            ->select('name')
+            ->join('utensils', 'utensil_id', '=', 'utensils.id')
+            ->where('recipe_id', $recipe->id)
+            ->get();
+
+        // Formatting response
+        $response = [
+            'name' => $recipe->name,
+            'cook_time' => $recipe->cook_time,
+            'prep_time' => $recipe->prep_time,
+            'description' => $recipe->description,
+            'ingredients' => $ingredients,
+            'utensils' => $utensils
+        ];
+
+        return response($response, 200);
     }
 
     /**

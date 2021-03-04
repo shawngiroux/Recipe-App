@@ -8,7 +8,8 @@ class Recipe extends React.Component {
         this.state = {
             recipe_name: "",
             cook_time: "",
-            prep_time: ""
+            prep_time: "",
+            description: ""
         }
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -17,13 +18,12 @@ class Recipe extends React.Component {
         fetch('/api/recipes/' + id)
             .then(response => response.json())
             .then(
-                data => {
-                    data.forEach((recipe) => {
-                        this.setState({
-                            recipe_name: recipe.name,
-                            cook_time: recipe.cook_time,
-                            prep_time: recipe.prep_time
-                        })
+                recipe => {
+                    this.setState({
+                        recipe_name: recipe.name,
+                        cook_time: recipe.cook_time,
+                        prep_time: recipe.prep_time,
+                        description: recipe.description
                     });
                 }
             );
@@ -65,7 +65,7 @@ class Recipe extends React.Component {
                         </div>
                     </div>
                     <div className="pl-8 pr-8 pt-8 w-full bg-white rounded-bl-xl rounded-br-xl flex flex-col space-evenly">
-                        <CategoryCard header="Description" body={body}></CategoryCard>
+                        <CategoryCard header="Description" body={ this.state.description }></CategoryCard>
                         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
                             <CategoryCard header="Ingredients" body={body}></CategoryCard>
                             <CategoryCard header="Bust Out" body={body}></CategoryCard>

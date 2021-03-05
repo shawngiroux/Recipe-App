@@ -14,7 +14,7 @@ class RecipeCard extends React.Component {
 
         // Trimming long descriptions and adding trailing elipses
         if (desc.length > 140) {
-            this.state.description = desc.substring(1,141) + "...";
+            this.state.description = desc.substring(0,140) + "...";
         }
     }
     render() {

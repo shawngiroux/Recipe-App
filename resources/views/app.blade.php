@@ -7,8 +7,8 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
     <title>Recipe App</title>
 </head>
-<body class="h-full w-full flex justify-center">
-    <div id="app" class="flex w-full md:max-w-6xl flex-col">
+<body class="min-h-full w-full flex justify-center">
+    <div id="app" class="h-full w-full md:max-w-6xl flex flex-col">
     </div>
 </body>
 <script src="{{ asset('js/app.js') }}"></script>

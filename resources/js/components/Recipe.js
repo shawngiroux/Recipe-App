@@ -25,6 +25,47 @@ class Recipe extends React.Component {
                         prep_time: recipe.prep_time,
                         description: recipe.description
                     });
+                    let ingredients = <ul className="grid grid-cols-3 gap-10">{recipe.ingredients.map(
+                        (item) => {
+                            let item_qty = ` x${item.quantity}`;
+                            return <li
+                                className="
+                                    p-0.5
+                                    flex
+                                    items-center
+                                    justify-center
+                                    bg-purple-600
+                                    text-white
+                                    text-md
+                                    font-semibold
+                                    rounded-full
+                                "
+                                key={item.name}>{item.name}{item_qty}
+                                </li>;
+                        }
+                    )}</ul>;
+                    let utensils = <ul className="grid grid-cols-3 gap-10">{recipe.utensils.map(
+                        (item) => {
+                            return <li
+                                className="
+                                    p-0.5
+                                    flex
+                                    items-center
+                                    justify-center
+                                    bg-purple-600
+                                    text-white
+                                    text-md
+                                    font-semibold
+                                    rounded-full
+                                "
+                                key={item.name}>{item.name}
+                            </li>;
+                        }
+                    )}</ul>;
+                    this.setState({
+                        ingredients: ingredients,
+                        utensils: utensils
+                    });
                 }
             );
     }
@@ -67,8 +108,8 @@ class Recipe extends React.Component {
                     <div className="pl-8 pr-8 pt-8 w-full bg-white rounded-bl-xl rounded-br-xl flex flex-col space-evenly">
                         <CategoryCard header="Description" body={ this.state.description }></CategoryCard>
                         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
-                            <CategoryCard header="Ingredients" body={body}></CategoryCard>
-                            <CategoryCard header="Bust Out" body={body}></CategoryCard>
+                            <CategoryCard header="Ingredients" body={ this.state.ingredients }></CategoryCard>
+                            <CategoryCard header="Bust Out" body={ this.state.utensils }></CategoryCard>
                         </div>
                         <CategoryCard header="Directions" body={body}></CategoryCard>
                     </div>

@@ -40,6 +40,7 @@ class RecipeController extends Controller
         $prep_time = $request->input('prep_time');
         $cook_time = $request->input('cook_time');
         $description = $request->input('description');
+        $directions = $request->input('directions');
 
         $ingredients = $request->input('ingredients');
         $utensils = $request->input('utensils');
@@ -58,7 +59,8 @@ class RecipeController extends Controller
             'name' => $recipe_name,
             'prep_time' => $prep_time,
             'cook_time' => $cook_time,
-            'description' => $description
+            'description' => $description,
+            'directions' => $directions
         ]);
 
         $recipe_id = $getId(
@@ -114,7 +116,7 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = DB::table('recipes')
-            ->select('id', 'name', 'cook_time', 'prep_time', 'description')
+            ->select('id', 'name', 'cook_time', 'prep_time', 'description', 'directions')
             ->where("id", $id)
             ->get()[0];
 
@@ -136,6 +138,7 @@ class RecipeController extends Controller
             'cook_time' => $recipe->cook_time,
             'prep_time' => $recipe->prep_time,
             'description' => $recipe->description,
+            'directions' => $recipe->directions,
             'ingredients' => $ingredients,
             'utensils' => $utensils
         ];

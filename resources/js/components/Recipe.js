@@ -9,7 +9,8 @@ class Recipe extends React.Component {
             recipe_name: "",
             cook_time: "",
             prep_time: "",
-            description: ""
+            description: "",
+            directions: ""
         }
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -23,7 +24,8 @@ class Recipe extends React.Component {
                         recipe_name: recipe.name,
                         cook_time: recipe.cook_time,
                         prep_time: recipe.prep_time,
-                        description: recipe.description
+                        description: recipe.description,
+                        directions: recipe.directions
                     });
                     let ingredients = <ul className="grid grid-cols-3 gap-10">{recipe.ingredients.map(
                         (item) => {
@@ -111,7 +113,7 @@ class Recipe extends React.Component {
                             <CategoryCard header="Ingredients" body={ this.state.ingredients }></CategoryCard>
                             <CategoryCard header="Bust Out" body={ this.state.utensils }></CategoryCard>
                         </div>
-                        <CategoryCard header="Directions" body={body}></CategoryCard>
+                        <CategoryCard header="Directions" body={ this.state.directions }></CategoryCard>
                     </div>
                 </div>
             </div>

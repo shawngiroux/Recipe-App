@@ -10,8 +10,9 @@ class RecipeForm extends React.Component {
             prep_time: "",
             cook_time: "",
             ingredients: [],
-            utensil: [],
-            description: ""
+            utensils: [],
+            description: "",
+            directions: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -86,6 +87,16 @@ class RecipeForm extends React.Component {
                             <label className="font-bold">
                                 Description:
                                 <textarea name="description"
+                                    cols="30"
+                                    rows="10"
+                                    onChange={this.handleChange}
+                                />
+                            </label>
+                        </div>
+                        <div className="mb-8">
+                            <label className="font-bold">
+                                Directions:
+                                <textarea name="directions"
                                     cols="30"
                                     rows="10"
                                     onChange={this.handleChange}

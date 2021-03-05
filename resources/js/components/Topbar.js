@@ -15,6 +15,14 @@ class Topbar extends React.Component {
                             <h1 className="text-2xl font-medium text-gray-700 mx-4">Recipe App</h1>
                         </div>
                     </a>
+                    <div className="bg-purple-600 rounded-lg p-2">
+                        <a href="/new-recipe" className="ml-2 flex items-center justify-center text-white text-medium font-semibold">
+                            Add Recipe
+                            <svg className="h-8 w-8 stroke-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         );

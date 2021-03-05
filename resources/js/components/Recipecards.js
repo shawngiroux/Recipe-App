@@ -31,7 +31,7 @@ class RecipeCards extends React.Component {
 
     render() {
         return (
-            <div className="w-full bg-gray-100 grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-10 sm:p-8">
+            <div className="w-full h-full bg-gray-100 grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-10 sm:p-8">
                 {this.state.recipes}
                 <a href="/new-recipe">
                     <div className="flex items-center justify-center max-w-sm w-84 h-full mx-auto bg-white rounded-xl shadow-md flex flex-col items-center space-x-4 mt-10 md:mt-0 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">

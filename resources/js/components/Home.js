@@ -5,7 +5,7 @@ import Topbar from './Topbar.js';
 
 function Home() {
     return (
-        <div>
+        <div className="h-full">
             <Topbar></Topbar>
             <RecipeCards></RecipeCards>
         </div>

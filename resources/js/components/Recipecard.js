@@ -2,6 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class RecipeCard extends React.Component {
+    constructor(props) {
+        super(props);
+
+        // Defaulting any null descriptions
+        let desc = this.props.description ?? "";
+
+        this.state = {
+            description: desc
+        }
+
+        // Trimming long descriptions and adding trailing elipses
+        if (desc.length > 140) {
+            this.state.description = desc.substring(1,141) + "...";
+        }
+    }
     render() {
         const link = "/recipe?id=" + this.props.id;
 
@@ -12,7 +27,7 @@ class RecipeCard extends React.Component {
                     <div className="w-full h-60 flex flex-col justify-between p-6">
                         <div className="h-1/3 pl-2 pr-2">
                             <div className="text-xl font-semibold text-black">{ this.props.name }</div>
-                            <p className="text-sm font-medium text-gray-500">{ this.props.description }</p>
+                            <p className="text-sm font-medium text-gray-500">{ this.state.description }</p>
                         </div>
                         <div className="flex justify-evenly">
                             <div className="flex items-center justify-evenly w-full mt-5 mb-3">

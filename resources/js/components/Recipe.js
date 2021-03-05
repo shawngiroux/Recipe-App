@@ -27,9 +27,9 @@ class Recipe extends React.Component {
                         description: recipe.description,
                         directions: recipe.directions
                     });
-                    let ingredients = <ul className="grid grid-cols-3 gap-10">{recipe.ingredients.map(
+                    let ingredients = <ul className="grid grid-cols-2 gap-10">{recipe.ingredients.map(
                         (item) => {
-                            let item_qty = ` x${item.quantity}`;
+                            let item_qty = ` x${item.quantity} ${item.measurement}`;
                             return <li
                                 className="
                                     p-0.5
@@ -46,7 +46,7 @@ class Recipe extends React.Component {
                                 </li>;
                         }
                     )}</ul>;
-                    let utensils = <ul className="grid grid-cols-3 gap-10">{recipe.utensils.map(
+                    let utensils = <ul className="grid grid-cols-2 gap-10">{recipe.utensils.map(
                         (item) => {
                             return <li
                                 className="

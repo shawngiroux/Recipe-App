@@ -9,6 +9,7 @@ class RecipeFormList extends React.Component {
         this.state = {
             name: "",
             qty: 1,
+            measurement: "qty",
             list: []
         }
 
@@ -23,7 +24,8 @@ class RecipeFormList extends React.Component {
     handleAdd() {
         let item = {
             name: this.state.name,
-            qty: this.state.qty
+            qty: this.state.qty,
+            measurement: this.state.measurement
         };
 
         this.state.list.push(item);
@@ -34,20 +36,38 @@ class RecipeFormList extends React.Component {
                 let item_qty = ""
                 if (this.props.hasQty) {
                     item_qty = undefined ?? 1;
-                    item_qty = ` (x${item.qty})`;
+                    item_qty = ` ${item.qty} ${item.measurement}`;
                 }
-                return <li key={item.name}>{item.name}{item_qty}</li>;
+                return <li
+                    className="
+                        p-0.5
+                        flex
+                        items-center
+                        justify-center
+                        bg-purple-600
+                        text-white
+                        text-md
+                        font-semibold
+                        rounded-full
+                    "
+                    key={item.name}>{item.name}{item_qty}
+                    </li>;
             }
         )}
         </ul>;
 
         let element = <CategoryCard header={this.props.header} body={list}></CategoryCard>;
 
+        // Reset to defaults
         this.setState({name: ''});
         this.refs.[this.props.header].value = "";
+
         if (this.props.hasQty === true) {
             this.setState({qty: 1});
             this.refs.qty.value = 1;
+
+            this.setState({measurement: "qty"});
+            this.refs.measurement.value = "qty";
         }
 
         ReactDOM.render(element, document.getElementById(this.props.id));
@@ -55,16 +75,30 @@ class RecipeFormList extends React.Component {
 
     render() {
         let qty;
+        let measurement;
 
         if (this.props.hasQty === true) {
-            qty = <input className="w-1/4"
+            qty = <input className="w-32 mr-4"
                 type="number"
                 name="qty"
                 onChange={this.handleChange}
-                placeholder="Qty"
+                placeholder="Amount"
                 ref="qty"
                 min="1"
             />
+
+            measurement = <select className="w-48"
+                name="measurement"
+                onChange={this.handleChange}
+                ref="measurement"
+                min="1"
+            >
+                <option value="qty">Qty</option>
+                <option value="lbs">Lbs</option>
+                <option value="oz">Oz</option>
+                <option value="tsp">Tsp</option>
+                <option value="tsbp">Tbsp</option>
+            </select>
         }
         return (
             <div>
@@ -74,7 +108,7 @@ class RecipeFormList extends React.Component {
                         <button className="mr-4" type="button" onClick={this.handleAdd} >
                             Add
                         </button>
-                        <input className={this.props.hasQty == true ? "w-3/4 mr-4" : " w-full"}
+                        <input className={this.props.hasQty == true ? "w-full mr-4" : " w-full"}
                             type="text"
                             name="name"
                             onChange={this.handleChange}
@@ -82,6 +116,7 @@ class RecipeFormList extends React.Component {
                             ref={this.props.header}
                         />
                         {qty}
+                        {measurement}
                     </div>
                 </label>
                 <div id={this.props.id}>

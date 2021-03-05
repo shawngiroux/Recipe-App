@@ -83,7 +83,8 @@ class RecipeController extends Controller
             DB::table('recipe_ingredients')->insertOrIgnore([
                 'recipe_id' => $recipe_id,
                 'ingredient_id' => $ingredient_id,
-                'quantity' => $ingredient['qty']
+                'quantity' => $ingredient['qty'],
+                'measurement' => $ingredient['measurement']
             ]);
         }
 
@@ -121,7 +122,7 @@ class RecipeController extends Controller
             ->get()[0];
 
         $ingredients = DB::table('recipe_ingredients')
-            ->select('name', 'quantity')
+            ->select('name', 'quantity', 'measurement')
             ->join('ingredients', 'ingredient_id', '=', 'ingredients.id')
             ->where('recipe_id', $recipe->id)
             ->get();

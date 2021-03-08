@@ -37,8 +37,7 @@ class Recipe extends React.Component {
                                     justify-center
                                     bg-purple-600
                                     text-white
-                                    text-md
-                                    font-semibold
+                                    text-sm
                                     rounded-full
                                 "
                                 key={item.ingredient}> {item.ingredient}
@@ -56,8 +55,7 @@ class Recipe extends React.Component {
                                     justify-center
                                     bg-purple-600
                                     text-white
-                                    text-md
-                                    font-semibold
+                                    text-sm
                                     rounded-full
                                 "
                                 key={item.name}>{item.name}

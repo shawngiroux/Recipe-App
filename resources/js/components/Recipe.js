@@ -29,7 +29,13 @@ class Recipe extends React.Component {
                     });
                     let ingredients = <ul className="grid grid-cols-2 gap-10">{recipe.ingredients.map(
                         (item) => {
-                            let item_qty = ` x${item.quantity} ${item.measurement}`;
+                            let item_format = ` ${item.name} ${item.quantity} ${item.measurement} `;
+
+                            // Formatting quantities to be like "Apple x3"
+                            if (item.measurement == "qty") {
+                                item_format = ` ${item.name} x${item.quantity} `;
+                            }
+
                             return <li
                                 className="
                                     p-0.5
@@ -42,10 +48,11 @@ class Recipe extends React.Component {
                                     font-semibold
                                     rounded-full
                                 "
-                                key={item.name}>{item.name}{item_qty}
+                                key={item.name}>{item_format}
                                 </li>;
                         }
                     )}</ul>;
+
                     let utensils = <ul className="grid grid-cols-2 gap-10">{recipe.utensils.map(
                         (item) => {
                             return <li

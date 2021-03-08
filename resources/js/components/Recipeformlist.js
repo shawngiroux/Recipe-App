@@ -12,11 +12,19 @@ class RecipeFormList extends React.Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
     }
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
+    }
+
+    // Allow users to push shift+enter to add items
+    handleKeyPress(event) {
+        if (event.which === 13 && event.shiftKey) {
+            this.handleAdd();
+        }
     }
 
     handleAdd() {
@@ -71,6 +79,7 @@ class RecipeFormList extends React.Component {
                             onChange={this.handleChange}
                             placeholder={this.props.header}
                             ref={this.props.header}
+                            onKeyPress={this.handleKeyPress}
                         />
                     </div>
                 </label>

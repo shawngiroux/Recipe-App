@@ -7,7 +7,7 @@ class CategoryCard extends React.Component {
                 <div className="relative flex justify-center">
                     <h1 className="absolute -inset-y-4 bg-white pr-6 pl-6 text-xl font-bold text-purple-400">{this.props.header}</h1>
                 </div>
-                <div className="p-8">
+                <div className="p-8 whitespace-pre-line">
                     {this.props.body}
                 </div>
             </div>

@@ -78,7 +78,7 @@ class RecipeForm extends React.Component {
                             </label>
                         </div>
                         <div className="mb-4">
-                            <RecipeFormList handleAddListItem={this.handleAddListItem} id="ingredient-list" header="Ingredients" hasQty={true} />
+                            <RecipeFormList handleAddListItem={this.handleAddListItem} id="ingredient-list" header="Ingredients" />
                         </div>
                         <div className="mb-4">
                             <RecipeFormList handleAddListItem={this.handleAddListItem} id="utensils-list" header="Utensils" />

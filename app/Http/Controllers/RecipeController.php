@@ -70,21 +70,9 @@ class RecipeController extends Controller
         );
 
         foreach ($ingredients as $ingredient) {
-            DB::table('ingredients')->insertOrIgnore([
-                'name' => $ingredient['name']
-            ]);
-
-            $ingredient_id = $getId(
-                'ingredients',
-                'name',
-                $ingredient['name']
-            );
-
             DB::table('recipe_ingredients')->insertOrIgnore([
                 'recipe_id' => $recipe_id,
-                'ingredient_id' => $ingredient_id,
-                'quantity' => $ingredient['qty'],
-                'measurement' => $ingredient['measurement']
+                'ingredient' => $ingredient['name']
             ]);
         }
 
@@ -122,8 +110,7 @@ class RecipeController extends Controller
             ->get()[0];
 
         $ingredients = DB::table('recipe_ingredients')
-            ->select('name', 'quantity', 'measurement')
-            ->join('ingredients', 'ingredient_id', '=', 'ingredients.id')
+            ->select('ingredient')
             ->where('recipe_id', $recipe->id)
             ->get();
 

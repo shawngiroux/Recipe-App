@@ -8,7 +8,7 @@
     <title>Recipe App</title>
 </head>
 <body class="min-h-full w-full flex justify-center">
-    <div id="app" class="h-full w-full md:max-w-6xl flex flex-col">
+    <div id="app" class="min-h-full w-full md:max-w-6xl flex flex-col">
     </div>
 </body>
 <script src="{{ asset('js/app.js') }}"></script>

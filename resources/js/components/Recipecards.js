@@ -32,7 +32,7 @@ class RecipeCards extends React.Component {
 
     render() {
         return (
-            <div className="w-full h-full bg-gray-100 grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-10 sm:p-8">
+            <div className="w-full grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-10 sm:p-8">
                 {this.state.recipes}
             </div>
         );

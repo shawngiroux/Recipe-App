@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Recipes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -36,14 +37,16 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        $recipe_name = $request->input('recipe_name');
-        $prep_time = $request->input('prep_time');
-        $cook_time = $request->input('cook_time');
-        $description = $request->input('description');
-        $directions = $request->input('directions');
+        $data = json_decode($request->input('body'), true);
 
-        $ingredients = $request->input('ingredients');
-        $utensils = $request->input('utensils');
+        $recipe_name = $data['recipe_name'];
+        $prep_time = $data['prep_time'];
+        $cook_time = $data['cook_time'];
+        $description = $data['description'];
+        $directions = $data['directions'];
+        $image_path = $request->image->store('public');
+        $ingredients = $data['ingredients'];
+        $utensils = $data['utensils'];
 
         // Grabs id of entry in a given table
         $getId = function($table, $col_name, $col_val) {
@@ -60,7 +63,8 @@ class RecipeController extends Controller
             'prep_time' => $prep_time,
             'cook_time' => $cook_time,
             'description' => $description,
-            'directions' => $directions
+            'directions' => $directions,
+            'image_path' => $image_path
         ]);
 
         $recipe_id = $getId(
@@ -105,7 +109,7 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = DB::table('recipes')
-            ->select('id', 'name', 'cook_time', 'prep_time', 'description', 'directions')
+            ->select('id', 'name', 'cook_time', 'prep_time', 'description', 'directions', 'image_path')
             ->where("id", $id)
             ->get()[0];
 
@@ -127,6 +131,7 @@ class RecipeController extends Controller
             'prep_time' => $recipe->prep_time,
             'description' => $recipe->description,
             'directions' => $recipe->directions,
+            'image_path' => Storage::url($recipe->image_path),
             'ingredients' => $ingredients,
             'utensils' => $utensils
         ];
@@ -142,8 +147,14 @@ class RecipeController extends Controller
     public function getAll()
     {
         $recipes = DB::table('recipes')
-            ->select('id', 'name', 'cook_time', 'prep_time', 'description')
+            ->select('id', 'name', 'cook_time', 'prep_time', 'description', 'image_path')
             ->get();
+
+        // Getting image urls
+        foreach ($recipes as &$recipe) {
+            $recipe->image_path = Storage::url($recipe->image_path);
+        }
+
         return response($recipes, 200);
     }
 

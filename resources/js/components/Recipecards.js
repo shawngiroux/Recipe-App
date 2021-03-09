@@ -22,6 +22,7 @@ class RecipeCards extends React.Component {
                                 cook_time={recipe.cook_time}
                                 prep_time={recipe.prep_time}
                                 description={recipe.description}
+                                image_path={recipe.image_path}
                             />
                         )
                     });

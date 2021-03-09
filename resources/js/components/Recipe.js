@@ -10,7 +10,8 @@ class Recipe extends React.Component {
             cook_time: "",
             prep_time: "",
             description: "",
-            directions: ""
+            directions: "",
+            image_path: ""
         }
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -25,8 +26,10 @@ class Recipe extends React.Component {
                         cook_time: recipe.cook_time,
                         prep_time: recipe.prep_time,
                         description: recipe.description,
-                        directions: recipe.directions
+                        directions: recipe.directions,
+                        image_path: recipe.image_path
                     });
+
                     let ingredients = <ul className="grid grid-cols-2 gap-10">{recipe.ingredients.map(
                         (item) => {
                             return <li
@@ -86,7 +89,7 @@ class Recipe extends React.Component {
             transform: "scale(1.03)",
             width: "100%",
             height: "24rem",
-            backgroundImage: "url(https://www.chef-in-training.com/blog/wp-content/uploads/2016/04/Beef-Stew-2.jpg)",
+            backgroundImage: "url(" + this.state.image_path + ")",
             backgroundColor: "rgba(0,0,0,0.5)",
             backgroundBlendMode: "multiply"
         };

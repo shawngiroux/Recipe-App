@@ -23,7 +23,7 @@ class RecipeCard extends React.Component {
         return (
             <a href={link}>
                 <div className="max-w-sm w-84 mx-auto bg-white rounded-xl shadow-md flex flex-col items-center mt-10 md:mt-0 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img className="h-64 w-full object-cover rounded-tl-xl rounded-tr-xl" src="https://www.chef-in-training.com/blog/wp-content/uploads/2016/04/Beef-Stew-2.jpg" alt=""></img>
+                    <img className="h-64 w-full object-cover rounded-tl-xl rounded-tr-xl" src={ this.props.image_path } alt=""></img>
                     <div className="w-full h-60 flex flex-col justify-between p-6">
                         <div className="h-1/3 pl-2 pr-2">
                             <div className="text-xl font-semibold text-black">{ this.props.name }</div>

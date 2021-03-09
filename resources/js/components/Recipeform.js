@@ -1,5 +1,6 @@
 import React from 'react';
 import TopBar from './Topbar.js'; import RecipeFormList from './Recipeformlist.js';
+import ImageUploader from 'react-images-upload';
 
 class RecipeForm extends React.Component {
     constructor(props) {
@@ -12,12 +13,14 @@ class RecipeForm extends React.Component {
             ingredients: [],
             utensils: [],
             description: "",
-            directions: ""
+            directions: "",
+            image: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAddListItem = this.handleAddListItem.bind(this);
+        this.onDrop = this.onDrop.bind(this);
     }
 
     handleChange(event) {
@@ -25,14 +28,13 @@ class RecipeForm extends React.Component {
     }
 
     handleSubmit(event) {
+        let formData = new FormData();
+        formData.append('image', this.state.image[0]);
+        formData.append('body', JSON.stringify(this.state));
         fetch('/api/recipes', {
             method: 'POST',
-            body: JSON.stringify(this.state),
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            body: formData,
         });
-        console.log(this.state);
         event.preventDefault();
     }
 
@@ -40,6 +42,12 @@ class RecipeForm extends React.Component {
     handleAddListItem(key, item) {
         // Setting to lower to match the state's index
         this.setState({[key.toLowerCase()]: item});
+    }
+
+    onDrop(image) {
+        this.setState({
+            image: image
+        });
     }
 
     render() {
@@ -110,6 +118,17 @@ class RecipeForm extends React.Component {
                                     onChange={this.handleChange}
                                 />
                             </label>
+                        </div>
+                        <div>
+                            <ImageUploader
+                                withIcon={true}
+                                withPreview={true}
+                                singleImage={true}
+                                buttonText="Choose image"
+                                onChange={this.onDrop}
+                                imgExtension={[".jpg", ".jpeg", ".png"]}
+                                maxFileSize={5242880}
+                            />
                         </div>
                         <input type="submit" className="w-full" value="Submit" />
                     </div>

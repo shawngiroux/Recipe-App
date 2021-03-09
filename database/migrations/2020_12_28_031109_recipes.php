@@ -20,6 +20,7 @@ class Recipes extends Migration
             $table->integer('prep_time');
             $table->text('description')->nullable();
             $table->text('directions')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

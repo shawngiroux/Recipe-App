@@ -56,7 +56,7 @@ class RecipeForm extends React.Component {
                 <TopBar></TopBar>
                 <form
                     onSubmit={this.handleSubmit}
-                    className="bg-gray-100 w-full h-full p-8"
+                    className="bg-gray-100 w-full h-full md:p-8"
                     onKeyPress={event => {
                         if (event.which === 13 && event.shiftKey) {
                             event.preventDefault();

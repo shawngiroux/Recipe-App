@@ -21,9 +21,9 @@ class RecipeCard extends React.Component {
         const link = "/recipe?id=" + this.props.id;
 
         return (
-            <a className="h-auto w-84 mx-auto bg-white rounded-xl shadow-md flex flex-col items-center mt-10 md:mt-0 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" href={link}>
-                <img className="h-64 w-full object-cover rounded-tl-xl rounded-tr-xl" src={ this.props.image_path } alt=""></img>
-                <div className="w-full h-60 flex flex-col justify-between p-6">
+            <a className="h-auto w-full p-4 md:p-0 mx-auto flex flex-col items-center mt-10 md:mt-0 md:transition md:duration-300 md:ease-in-out md:transform md:hover:-translate-y-1 md:hover:scale-105" href={link}>
+                <img className="h-64 w-full object-cover rounded-tl-xl shadow-md rounded-tr-xl" src={ this.props.image_path } alt=""></img>
+                <div className="w-full h-60 flex flex-col justify-between shadow-md rounded-bl-xl rounded-br-xl p-6 bg-white">
                     <div className="h-1/3 pl-2 pr-2">
                         <div className="text-xl font-semibold text-black">{ this.props.name }</div>
                         <p className="text-sm font-medium text-gray-500">{ this.state.description }</p>

@@ -43,10 +43,10 @@ class RecipeFormList extends React.Component {
                         flex
                         items-center
                         justify-center
+                        text-align
                         bg-purple-600
                         text-white
-                        text-md
-                        font-semibold
+                        text-sm
                         rounded-full
                     "
                     key={item.name}>{item.name}

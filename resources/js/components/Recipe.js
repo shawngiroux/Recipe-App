@@ -38,6 +38,7 @@ class Recipe extends React.Component {
                                     flex
                                     items-center
                                     justify-center
+                                    text-center
                                     bg-purple-600
                                     text-white
                                     text-sm
@@ -56,6 +57,7 @@ class Recipe extends React.Component {
                                     flex
                                     items-center
                                     justify-center
+                                    text-align
                                     bg-purple-600
                                     text-white
                                     text-sm

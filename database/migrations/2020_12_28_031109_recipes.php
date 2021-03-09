@@ -19,6 +19,7 @@ class Recipes extends Migration
             $table->integer('cook_time');
             $table->integer('prep_time');
             $table->text('description')->nullable();
+            $table->text('directions')->nullable();
             $table->timestamps();
         });
     }

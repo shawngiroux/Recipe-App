@@ -30,7 +30,7 @@ class Recipe extends React.Component {
                         image_path: recipe.image_path
                     });
 
-                    let ingredients = <ul className="grid grid-cols-2 gap-10">{recipe.ingredients.map(
+                    let ingredients = <ul className="grid grid-cols-2 gap-10">{ recipe.ingredients.map(
                         (item) => {
                             return <li
                                 className="
@@ -43,12 +43,12 @@ class Recipe extends React.Component {
                                     text-sm
                                     rounded-full
                                 "
-                                key={item.ingredient}> {item.ingredient}
+                                key={ item.ingredient }> { item.ingredient }
                                 </li>;
                         }
                     )}</ul>;
 
-                    let utensils = <ul className="grid grid-cols-2 gap-10">{recipe.utensils.map(
+                    let utensils = <ul className="grid grid-cols-2 gap-10">{ recipe.utensils.map(
                         (item) => {
                             return <li
                                 className="
@@ -61,7 +61,7 @@ class Recipe extends React.Component {
                                     text-sm
                                     rounded-full
                                 "
-                                key={item.name}>{item.name}
+                                key={ item.name }>{ item.name }
                             </li>;
                         }
                     )}</ul>;
@@ -103,9 +103,9 @@ class Recipe extends React.Component {
                 <div className="p-8 bg-gray-100 w-full">
                     <div className="overflow-hidden w-full relative rounded-tl-xl rounded-tr-xl">
                         <div className="w-full h-full flex items-center justify-center absolute">
-                            <h1 className="text-white z-10 text-6xl">{this.state.recipe_name}</h1>
+                            <h1 className="text-white z-10 text-6xl">{ this.state.recipe_name }</h1>
                         </div>
-                        <div style={img_style}>
+                        <div style={ img_style }>
                         </div>
                     </div>
                     <div className="pl-8 pr-8 pt-8 w-full bg-white rounded-bl-xl rounded-br-xl flex flex-col space-evenly">

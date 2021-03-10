@@ -1,12 +1,16 @@
 import React from 'react';
 import TopBar from './Topbar.js'; import RecipeFormList from './Recipeformlist.js';
+import ConfirmationModal from './ConfirmationModal.js';
 import ImageUploader from 'react-images-upload';
+import { Redirect } from 'react-router-dom';
 
 class RecipeForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            show_confirm: false,
+            redirect: false,
             recipe_name: "",
             prep_time: "",
             cook_time: "",
@@ -18,6 +22,7 @@ class RecipeForm extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleConfirmation = this.handleConfirmation.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAddListItem = this.handleAddListItem.bind(this);
         this.onDrop = this.onDrop.bind(this);
@@ -27,6 +32,22 @@ class RecipeForm extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    handleConfirmation(event) {
+        event.preventDefault();
+
+        let confirm = !this.state.show_confirm;
+        this.setState({show_confirm: confirm});
+
+        // Locking scrolling
+        if (confirm) {
+            document.body.style.overflow = "hidden";
+            document.body.classList.add("no-scroll");
+        } else {
+            document.body.style.overflow = "";
+            document.body.classList.remove("no-scroll");
+        }
+    }
+
     handleSubmit(event) {
         let formData = new FormData();
         formData.append('image', this.state.image[0]);
@@ -34,8 +55,11 @@ class RecipeForm extends React.Component {
         fetch('/api/recipes', {
             method: 'POST',
             body: formData,
+        }).then(() => {
+            this.setState({redirect: true});
+            document.body.style.overflow = "";
+            document.body.classList.remove("no-scroll");
         });
-        event.preventDefault();
     }
 
     // Handler for adding list items to form state
@@ -51,12 +75,21 @@ class RecipeForm extends React.Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/" />;
+        }
+
         return (
             <div className="w-full h-full">
                 <TopBar></TopBar>
+                <ConfirmationModal
+                    show={ this.state.show_confirm }
+                    handleConfirmation={ this.handleConfirmation }
+                    handleSubmit={ this.handleSubmit }
+                ></ConfirmationModal>
                 <form
-                    onSubmit={this.handleSubmit}
-                    className="bg-gray-100 w-full h-full md:p-8"
+                    onSubmit={this.handleConfirmation}
+                    className="bg-gray-100 w-full md:p-8"
                     onKeyPress={event => {
                         if (event.which === 13 && event.shiftKey) {
                             event.preventDefault();

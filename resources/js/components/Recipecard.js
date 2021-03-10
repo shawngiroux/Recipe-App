@@ -21,7 +21,22 @@ class RecipeCard extends React.Component {
         const link = "/recipe?id=" + this.props.id;
 
         return (
-            <a className="h-auto w-full p-4 md:p-0 mx-auto flex flex-col items-center mt-10 md:mt-0 md:transition md:duration-300 md:ease-in-out md:transform md:hover:-translate-y-1 md:hover:scale-105" href={link}>
+            <div className="h-auto w-full p-4 md:p-0 mx-auto flex flex-col items-center mt-10 md:mt-0 md:transition md:duration-300 md:ease-in-out md:transform md:hover:-translate-y-1 md:hover:scale-105" href={link}>
+                <div className="fixed w-full h-full md:transition-opacity md:duration-500 md:ease-out opacity-0 md:hover:opacity-100">
+                    <div className="fixed w-20 h-10 bg-black top-0 right-0 rounded-tr-xl rounded-bl-xl flex items-center justify-evenly bg-opacity-70">
+                        <button className="bg-transparent p-0 hover:bg-transparent">
+                            <svg className="text-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                        </button>
+                        <button className="bg-transparent p-0 hover:bg-transparent">
+                            <svg className="text-white w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <a className="block h-full w-full" href={link}></a>
+                </div>
                 <img className="h-64 w-full object-cover rounded-tl-xl shadow-md rounded-tr-xl" src={ this.props.image_path } alt=""></img>
                 <div className="w-full h-60 flex flex-col justify-between shadow-md rounded-bl-xl rounded-br-xl p-6 bg-white">
                     <div className="h-1/3 pl-2 pr-2">
@@ -61,7 +76,7 @@ class RecipeCard extends React.Component {
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
         );
     }
 }

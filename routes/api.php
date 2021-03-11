@@ -22,3 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get("/recipes", [RecipeController::class, "getAll"]);
 Route::get("/recipes/{id}", [RecipeController::class, "show"]);
 Route::post("/recipes", [RecipeController::class, "store"]);
+Route::delete("/recipes/{id}", [RecipeController::class, "destroy"]);

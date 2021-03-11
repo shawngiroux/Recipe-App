@@ -7,13 +7,13 @@ class ConfirmationModal extends React.Component {
         let color = "";
         switch (this.props.type) {
             case "submit":
-                color = "bg-purple-600"
+                color = "bg-purple-600 hover:bg-purple-700"
                 break;
             case "danger":
-                color = "bg-red-600"
+                color = "bg-red-600 hover:bg-red-700"
                 break;
             default:
-                color = "bg-purple-600"
+                color = "bg-purple-600 hover:bg-purple-700"
         }
 
         this.state = {

@@ -189,6 +189,14 @@ class RecipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('recipe_ingredients')
+            ->where('recipe_id', $id)
+            ->delete();
+        DB::table('recipe_utensils')
+            ->where('recipe_id', $id)
+            ->delete();
+        DB::table('recipes')
+            ->where('id', $id)
+            ->delete();
     }
 }

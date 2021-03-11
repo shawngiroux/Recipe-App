@@ -86,6 +86,10 @@ class RecipeForm extends React.Component {
                     show={ this.state.show_confirm }
                     handleConfirmation={ this.handleConfirmation }
                     handleSubmit={ this.handleSubmit }
+                    type="submit"
+                    header="Save Recipe"
+                    body="Would you like to save this recipe?"
+                    primary_btn_msg="Submit"
                 ></ConfirmationModal>
                 <form
                     onSubmit={this.handleConfirmation}
